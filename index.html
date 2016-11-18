@@ -96,9 +96,9 @@
         <p></p>
         <div class="">
             <p>
-                Joey is opting to work on the mobile application via Ionic and having a blast figuring out the new framework. I've decided to create the server side and get to work creating the initial Express app and routes. Thanks to our instructors, Express apps are
-                our bread and butter so it's done relatively easily. Unfortuantely we hit a snag using Socket.io. It's our first time utilizing the module and we can't seem to be able to connect our MacBooks with the Pi. During our initial tests and experimenting
-                we had used a PC and were able to get things done swiftly but it's quite the opposite right now. Looks like it's time to hit the documentation....
+                Joey is opting to work on the mobile application via Ionic and is having a blast figuring out the new framework. I've decided to create the server side and get to work creating the initial Express app and routes. Thanks to our instructors, Express apps
+                are our bread and butter so it's done relatively easily. Unfortuantely we hit a snag using Socket.io. It's our first time utilizing the module and we can't seem to be able to connect our MacBooks with the Pi in a basic test. During our
+                initial tests and experimenting we had used a PC and were able to get things done swiftly but it's quite the opposite right now. Looks like it's time to hit the documentation....
             </p>
         </div>
 
@@ -107,36 +107,72 @@
         <p></p>
         <div class="">
             <p>
-                After roughly two hours of research and trying everything in the freakin book we realize it's a node issue. Rolling back from Node 7.0 to 6.4 resolves it and we're about ready for a damn beer. It turns out that when Google doesn't have the answer to your
-                issue, crying and muttering curses will usually get it solved after a bit. We have a few things to take care of in class so the project gets put away for a bit and it's off to working at home over Slack. A little bit of a rocky start to
-                the week but we're confident in our skills and know we're going to be sucessful.
+                After roughly two hours of research and trying everything in the freakin book we realize it's a node issue which of course isn't listed anywhere. Rolling back from Node 7.0 to 6.4 resolves it and we're about ready for a damn beer. It turns out that when
+                Google doesn't have the answer to your issue, crying and muttering curses will usually get it solved after a bit. We have a few things to take care of in class so the project gets put away for a bit and it's off to working at home over
+                Slack. A little bit of a rocky start to the week but we're confident in our skills and know we're going to be sucessful.
             </p>
         </div>
+
+        <p>Side note - We took a break and made cereal suicides. The perfect thing to boost brain power and maybe a little self-loating.</p>
+        <img src="public/images/IMG_1007.jpg" class="img-rounded" alt="" />
 
         <p></p>
         <h5>Tuesday, November 11/15</h5>
 
         <div class="">
             <p>
-                We may have overestimated our workaround to the connection issues. We've hit a pretty big roadblock in gettin the Pi connected and talking to one of our computers. From what we can find it seems to be an authorization issue concerning our school's encrypted
-                network. We know we can get it working at home but that would leave all changes made during the day untestable until we get home.
+                We may have overestimated our workaround to the connection issues. We've hit a pretty big roadblock in gettin the Pi connected and talking to one of our computers. From what we can find it seems we're now dealing with an authorization issue concerning
+                our school's encrypted network. We know we can get it working at home but that would leave all changes made during the day untestable until we get home.
             </p>
 
             <p>
                 After several different attempts and sudo commands (DON'T DO IT) we have totally and completely ruined everything. We can't even connect to a wifi spot with the Pi. After a little deliberation we decide to burn it down and start over. We wipe the drive
-                and completely reinstall the OS and all the packages again. Fast forward to a newly setup Pi and our Fearless Instructor gives us a nudge in the right direction. We start a Python server on our Pi can connect other devices via HTTP requests.
-                IT FREAKING WORKS. We high five, laugh, and internally stop screaming over anxiety and despair. It's a pretty good moment.
-            </p>
-
-            <p>
-                We give our basic backend a whirl and START STREAMING A YOUTUBE VIDEO FROM OUR PHONES TO THE PI. All is well with the world. The down side is that this has taken most of the day but with renewed vigor we make a plan for what we're working on in the evening
-                and set to it. Now that we have a basic setup it's time to build the front end application and add features so we can have a solid Quarter Three project.
+                and completely reinstall the OS and all the packages again. Fast forward to a newly setup Pi and our Fearless Instructor gives us a nudge in the right direction: start a Python server on our Pi and try to connect with other devices via
+                HTTP requests. IT FREAKING WORKS. We high five, laugh, and internally stop screaming over anxiety and despair. It's a pretty good moment. For the evening we decide to read over things a bit more to try and be better prepared.
             </p>
         </div>
 
 
         <p></p>
         <h5>Wednesday, November 11/16</h5>
+
+        <div class="">
+            <p>
+                It's a new day and now knowing we can have a basic connection from our computers to the Pi we decide to push forward and build some stuff. Joey decides to really slam on Ionic and says he'll have the app designed and done by the end of the day. I step
+                up and start working on how we're going to implement our back end and utilize Socket.io.
+            </p>
+
+            <p>
+                For those not in know...as we were three days prior, Socket allows your backend and client side to "talk" to each other witout having to utilize URL routes or design. What we have designed is an Angular "single page" app using a standard index.html file
+                and building the multiple "pages" of the mobile app design within that one file. We really don't have any routes per se since we're just moving around one page.
+            </p>
+        </div>
+
+        <p></p>
+        <img src="http://www.masternote.co.uk/wp-content/uploads/2012/07/transmission-tower-smoothed-edges.jpg" class="img-rounded" alt="" />
+        <p></p>
+
+        <div class="">
+            <p>
+                I decided to bring in Socket as a broadcast system. Our app has a search page where utilizing the Youtube API we can make a call and search for videos on their site. We display them nicely and present the user with a watch button. I attach a function
+                to the button that utilizes a method from the Socket library called EMIT. We send out a code word, "video", and message which is essentially an object containin the id of the video.
+            </p>
+
+            <p>
+                On our server side we have a Socket methond called ON that listens for any broadcasts sent. Once it hears the code word "video" it launches a function we've written that will input various shell commands within the terminal application on the Pi. Namely
+                using Youtube-dl to find the video associated to the id and download it, then open the MP4 application using the OMXPlayer on the Pi. After the video plays it will auto exit and await any other further transmissions.
+            </p>
+
+            <p>
+                I get the backend written up and then Joey floors me with his app design. Note to everyone out there: Ionic is amazing and you should praise it. We ooh and ahh over the look and realize it's about time to go home. Looks like the next day is going through
+                and wiring the front end to the back end and seeing the fruits of our labor.
+            </p>
+        </div>
+
+        <p></p>
+        <img src="public/images/IMG_1011.jpg" class="img-rounded" alt="" id="mobile" />
+        <img src="public/images/IMG_1012.jpg" class="img-rounded" alt="" id="mobile" />
+        <p></p>
 
 
     </body>
